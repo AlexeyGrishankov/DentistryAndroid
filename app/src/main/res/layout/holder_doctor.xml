@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_holder_doctor_bg"
+    android:padding="25dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageDoctorAvatar"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textFieldDoctorFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageDoctorAvatar"
+        app:layout_constraintTop_toTopOf="@+id/imageDoctorAvatar"
+        tools:text="Петров Александр Петрович" />
+
+    <TextView
+        android:id="@+id/textFieldDoctorJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="#546E7A"
+        app:layout_constraintStart_toStartOf="@+id/textFieldDoctorFullName"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldDoctorFullName"
+        tools:text="Терапевт" />
+
+    <TextView
+        android:id="@+id/textTitlePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="#9E9E9E"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/textFieldDoctorJob"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldDoctorJob"
+        tools:text="Цена приема:" />
+
+    <TextView
+        android:id="@+id/textFieldPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textTitlePrice"
+        app:layout_constraintStart_toEndOf="@+id/textTitlePrice"
+        app:layout_constraintTop_toTopOf="@+id/textTitlePrice"
+        tools:text="от 1000 ₽" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

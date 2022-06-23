@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph.xml"
+    app:startDestination="@id/fragmentDoctorList">
+
+    <fragment
+        android:id="@+id/fragmentDoctorList"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentDoctorList"
+        android:label="fragment_doctor_list"
+        tools:layout="@layout/fragment_doctor_list" />
+    <fragment
+        android:id="@+id/fragmentUserProfile"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentUserProfile"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/fragmentServices"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentServices"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" />
+</navigation>

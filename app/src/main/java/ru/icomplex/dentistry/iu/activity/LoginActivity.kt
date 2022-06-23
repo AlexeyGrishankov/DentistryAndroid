@@ -1,19 +1,13 @@
 package ru.icomplex.dentistry.iu.activity
 
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View.GONE
+import android.os.CountDownTimer
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationCompat.DEFAULT_SOUND
-import androidx.core.app.NotificationCompat.DEFAULT_VIBRATE
-import androidx.core.app.NotificationManagerCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.icomplex.dentistry.R
@@ -26,12 +20,19 @@ import ru.icomplex.dentistry.iu.viewmodel.LoginActivityViewModel
 import ru.icomplex.dentistry.model.auth.AuthCode
 import ru.icomplex.dentistry.model.auth.AuthGrant
 import ru.icomplex.dentistry.model.auth.AuthPhone
+import ru.icomplex.dentistry.model.notification.NotificationSettings
+import ru.icomplex.dentistry.model.notification.NotificationSettings.Companion.ID
 import ru.icomplex.dentistry.model.settings.AppSettings
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
+
+    companion object {
+        const val NOTIFY_ID = 1002
+    }
 
     private val bind by viewBinding(ActivityLoginBinding::bind)
     private val viewModel: LoginActivityViewModel by viewModels()
@@ -39,34 +40,88 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     @Inject
     lateinit var appSettings: AppSettings
 
+    @Inject
+    lateinit var notificationSettings: NotificationSettings
+
+    private var isCodeMode = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init()
+        isCodeMode = true
+        start()
     }
 
-    private fun init() {
-        bind.layoutCode.visibility = GONE
+    private fun start() {
+        bind.topAppBar.apply {
+            title = "Стоматология ProDent"
+            subtitle = "г.Реутов, ул.Реутовских ополченцев, д.2"
+        }
         setObservers()
         setButtons()
+        setAutoStart()
+    }
+
+    private fun setAutoStart() {
+        appSettings.getCurrentToken()?.let {
+            startMainActivity()
+        }
+    }
+
+    private fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setButtons() {
         with(bind) {
-            sendSmsButton.setOnClickListener {
-                viewModel.sendSMS(
-                    AuthPhone(phoneFieldLogin.getText())
-                )
-                it.changeVisible(false)
-                layoutCode.changeVisible(true)
+            sendSmsButton.setOnClickListener(::onPostClickSendSmsBtn)
+            sendCodeAgainBtn.setOnClickListener(::onPostClickSendCodeAgainBtn)
+        }
+    }
+
+    private fun onPostClickSendCodeAgainBtn(_null: View) {
+        sendSms()
+    }
+
+    private fun onPostClickSendSmsBtn(view: View) {
+        with(bind) {
+            when (isCodeMode) {
+                false -> {
+                    val auth = AuthCode(codeFieldLogin.getText(), phoneFieldLogin.getText())
+                    viewModel.signIn(auth)
+                }
+                true -> {
+                    isCodeMode = false
+                    sendSms()
+                    sendSmsButton.text = "Подтвердить"
+                }
             }
-            sendCodeBtn.setOnClickListener {
-                viewModel.signIn(
-                    AuthCode(
-                        codeFieldLogin.getText(),
-                        phoneFieldLogin.getText()
-                    )
-                )
-            }
+        }
+    }
+
+    private fun sendSms() {
+        with(bind) {
+            sendCodeAgainBtn.changeVisible(false)
+            viewModel.sendSMS(
+                AuthPhone(phoneFieldLogin.getText())
+            )
+            object : CountDownTimer(
+                TimeUnit.SECONDS.toMillis(5),
+                TimeUnit.SECONDS.toMillis(1)
+            ) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val time = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
+                    val formatTime = when {
+                        time < 10 -> "00:0$time"
+                        else -> "00:$time"
+                    }
+                    textAgainSendCodeTimer.text = "Повторный запрос кода через: $formatTime"
+                }
+
+                override fun onFinish() {
+                    sendCodeAgainBtn.changeVisible(true)
+                }
+            }.start()
         }
     }
 
@@ -76,34 +131,23 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         observe(viewModel.progress, ::changeProgress)
     }
 
-
     private fun getSms(authCode: AuthCode) {
-        val name = "AuthCode"
-        val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel("AUTH_SMS", name, importance).apply {
-            setShowBadge(true)
-            lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-        }
-
-        val notificationManager: NotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
-
-        val builder = NotificationCompat.Builder(this, "AUTH_SMS")
+        val notification = NotificationCompat.Builder(this, ID)
             .setContentTitle("Авторизация")
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
             .setContentText("Код подтверждения: ${authCode.code}")
             .setDefaults(Notification.DEFAULT_ALL)
-            .setDefaults(DEFAULT_SOUND or DEFAULT_VIBRATE)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+            .setTicker("Notification")
+            .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))
+            .build()
 
-        with(NotificationManagerCompat.from(this)) {
-            notify(0, builder.build())
-        }
+        notificationSettings.getNotificationManager().notify(NOTIFY_ID, notification)
     }
 
     private fun getAuth(authGrant: AuthGrant) {
         toast("Успешная авторизация $authGrant")
+        startMainActivity()
     }
 
     private fun changeProgress(progress: Boolean) {

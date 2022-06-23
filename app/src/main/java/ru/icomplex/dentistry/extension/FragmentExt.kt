@@ -1,5 +1,6 @@
 package ru.icomplex.dentistry.extension
 
+import android.content.Context
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -16,4 +17,8 @@ inline fun <T> Fragment.observe(liveData: LiveData<T>, crossinline doAction: (T)
 
 fun Fragment.toast(msg: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), msg, duration).show()
+}
+
+fun Fragment.context(): Context {
+    return requireContext()
 }

@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Стоматология</string>
-    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="enter_phone_number">Укажите номер телефона</string>
     <string name="send_sms">Отправить смс</string>
     <string name="confirm">Подтвердить</string>
     <string name="enter_code_sms">Укажите код из SMS</string>
+    <string name="send_sms_again">Прислать код повторно</string>
+    <string name="sale_text_activity">Персональные акции, скидки и бонусы</string>
+    <string name="history_text_activity">Историю своих посещений</string>
+    <string name="auth_text_activity">Авторизируйтесь, чтобы видеть:</string>
 </resources>
