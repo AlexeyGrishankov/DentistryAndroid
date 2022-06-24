@@ -15,8 +15,9 @@ class SharedPreferencesAppSettings @Inject constructor(
 ) : AppSettings {
 
     companion object {
-        const val USER_TOKEN = "current_user_token"
         const val SECRET_SF = "secret_shared_prefs"
+        const val USER_TOKEN = "current_user_token"
+        const val NOTIFICATIONS_IDS = "notification_ids"
     }
 
     private val sharedPreferences = appContext.getSharedPreferences(SECRET_SF, Context.MODE_PRIVATE)
@@ -37,6 +38,23 @@ class SharedPreferencesAppSettings @Inject constructor(
             editor.remove(USER_TOKEN)
         } else {
             editor.putString(USER_TOKEN, token)
+        }
+        editor.apply()
+    }
+
+    override fun getNotificationsIds(): IntArray {
+        return sharedPreferences.getStringSet(NOTIFICATIONS_IDS, emptySet())
+            ?.map { it.toInt() }
+            ?.toIntArray()
+            ?: IntArray(0)
+    }
+
+    override fun setNotificationsIds(ids: IntArray) {
+        val editor = sharedPreferences.edit()
+        if (ids.isEmpty()) {
+            editor.remove(NOTIFICATIONS_IDS)
+        } else {
+            editor.putStringSet(NOTIFICATIONS_IDS, ids.map { "$it" }.toSet())
         }
         editor.apply()
     }

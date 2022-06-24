@@ -14,4 +14,8 @@ interface AppSettings {
      * Установить текущий токен
      */
     fun setCurrentToken(token: String?)
+
+    fun getNotificationsIds(): IntArray
+
+    fun setNotificationsIds(ids: IntArray)
 }

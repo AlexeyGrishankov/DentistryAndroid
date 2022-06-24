@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,17 +7,11 @@
     android:orientation="vertical"
     tools:context=".iu.fragment.FragmentDoctorList">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/action_bar_profile"
-        android:layout_width="match_parent"
-        app:title="Врачи"
-        app:menu="@menu/fragment_doctor_list_menu_toolbar"
-        android:layout_height="?attr/actionBarSize" />
-
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/doctorList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/holder_doctor" />
 
-</LinearLayout>
+</RelativeLayout>

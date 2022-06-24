@@ -7,5 +7,5 @@ import ru.icomplex.dentistry.model.notification.NotificationList
 interface NotificationApi {
 
     @GET("/api/notification")
-    suspend fun getNotifications(): Call<NotificationList>
+    fun getNotifications(): Call<NotificationList>
 }

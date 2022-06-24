@@ -5,21 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.icomplex.dentistry.R
 import ru.icomplex.dentistry.databinding.ActivityMainBinding
-import ru.icomplex.dentistry.databinding.ActivityMainDrawerBinding
+import ru.icomplex.dentistry.extension.changeVisible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val bind by viewBinding(ActivityMainBinding::bind)
+    private var isHiddenToolbar = false
 
-//        private val bindDrawer by viewBinding(ActivityMainDrawerBinding::bind)
+    //        private val bindDrawer by viewBinding(ActivityMainDrawerBinding::bind)
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun start() {
+        setSupportActionBar(bind.actionBar)
         setNavigation()
     }
 
@@ -49,5 +48,4 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 //    override fun onSupportNavigateUp(): Boolean {
 //        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 //    }
-
 }

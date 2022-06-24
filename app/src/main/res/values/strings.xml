@@ -8,4 +8,5 @@
     <string name="sale_text_activity">Персональные акции, скидки и бонусы</string>
     <string name="history_text_activity">Историю своих посещений</string>
     <string name="auth_text_activity">Авторизируйтесь, чтобы видеть:</string>
+    <string name="visit_price">Цена приема:</string>
 </resources>

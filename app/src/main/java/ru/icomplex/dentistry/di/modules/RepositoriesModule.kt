@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.icomplex.dentistry.repositories.auth.AuthRepository
 import ru.icomplex.dentistry.repositories.auth.AuthRepositoryImpl
+import ru.icomplex.dentistry.repositories.doctor.DoctorRepository
+import ru.icomplex.dentistry.repositories.doctor.DoctorRepositoryImpl
 import ru.icomplex.dentistry.repositories.notification.NotificationRepository
 import ru.icomplex.dentistry.repositories.notification.NotificationRepositoryImpl
 import ru.icomplex.dentistry.repositories.profile.ProfileRepository
@@ -28,4 +30,9 @@ abstract class RepositoriesModule {
     abstract fun bindNotificationRepo(
         repo: NotificationRepositoryImpl
     ): NotificationRepository
+
+    @Binds
+    abstract fun bindDoctorRepo(
+        repo: DoctorRepositoryImpl
+    ): DoctorRepository
 }

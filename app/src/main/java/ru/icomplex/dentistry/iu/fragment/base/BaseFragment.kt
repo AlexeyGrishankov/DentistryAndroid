@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import by.kirich1409.viewbindingdelegate.viewBinding
+import ru.icomplex.dentistry.iu.activity.MainActivity
 
 abstract class BaseFragment<BIND : ViewBinding>(
     @LayoutRes layoutID: Int,
@@ -25,4 +26,6 @@ abstract class BaseFragment<BIND : ViewBinding>(
     abstract fun init(view: View, bundle: Bundle?)
 
     open fun postInit() {}
+
+    fun getMainActivity() = requireActivity() as MainActivity
 }

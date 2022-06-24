@@ -9,8 +9,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageDoctorAvatar"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,11 +31,13 @@
 
     <TextView
         android:id="@+id/textFieldDoctorJob"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_regular"
+        android:singleLine="true"
         android:textColor="#546E7A"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textFieldDoctorFullName"
         app:layout_constraintTop_toBottomOf="@+id/textFieldDoctorFullName"
         tools:text="Терапевт" />
@@ -45,11 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_regular"
+        android:text="@string/visit_price"
         android:textColor="#9E9E9E"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textFieldDoctorJob"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldDoctorJob"
-        tools:text="Цена приема:" />
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageDoctorAvatar"
+        app:layout_constraintStart_toStartOf="@+id/textFieldDoctorJob" />
 
     <TextView
         android:id="@+id/textFieldPrice"
@@ -59,7 +62,7 @@
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/textTitlePrice"
         app:layout_constraintStart_toEndOf="@+id/textTitlePrice"
         app:layout_constraintTop_toTopOf="@+id/textTitlePrice"
