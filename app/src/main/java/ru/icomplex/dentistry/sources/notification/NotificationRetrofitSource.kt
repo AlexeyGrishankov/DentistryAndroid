@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import ru.icomplex.dentistry.extension.toResult
-import ru.icomplex.dentistry.model.notification.NotificationList
+import ru.icomplex.dentistry.model.notification.ViewNotificationList
 import ru.icomplex.dentistry.sources.base.BaseRetrofitSource
 import ru.icomplex.dentistry.sources.base.RetrofitConfig
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class NotificationRetrofitSource @Inject constructor(
 
     private val api = retrofit.create(NotificationApi::class.java)
 
-    override suspend fun getNotifications(): Result<NotificationList> {
+    override suspend fun getNotifications(): Result<ViewNotificationList> {
         return withContext(Dispatchers.IO) {
             api.getNotifications().awaitResponse().toResult()
         }

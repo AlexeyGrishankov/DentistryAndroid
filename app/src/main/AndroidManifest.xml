@@ -20,14 +20,16 @@
         android:theme="@style/Theme.dentistry"
         tools:targetApi="31">
         <activity
-            android:name=".iu.activity.LoginActivity"
+            android:name=".iu.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".iu.activity.MainActivity" />
+        <activity
+            android:name=".iu.activity.LoginActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import ru.icomplex.dentistry.extension.collectLiveData
 import ru.icomplex.dentistry.extension.launch
 import ru.icomplex.dentistry.extension.toLiveData
 import ru.icomplex.dentistry.model.doctor.ViewDoctorList
-import ru.icomplex.dentistry.model.notification.NotificationList
+import ru.icomplex.dentistry.model.notification.ViewNotificationList
 import ru.icomplex.dentistry.repositories.doctor.DoctorRepository
 import ru.icomplex.dentistry.repositories.notification.NotificationRepository
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class FragmentDoctorListViewModel @Inject constructor(
     private val doctorRepository: DoctorRepository
 ) : ViewModel() {
 
-    private val _notifications = MutableLiveData<NotificationList>()
+    private val _notifications = MutableLiveData<ViewNotificationList>()
     val notification = _notifications.toLiveData()
 
     private val _doctorList = MutableLiveData<ViewDoctorList>()

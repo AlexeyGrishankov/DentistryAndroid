@@ -12,6 +12,8 @@ import ru.icomplex.dentistry.repositories.notification.NotificationRepository
 import ru.icomplex.dentistry.repositories.notification.NotificationRepositoryImpl
 import ru.icomplex.dentistry.repositories.profile.ProfileRepository
 import ru.icomplex.dentistry.repositories.profile.ProfileRepositoryImpl
+import ru.icomplex.dentistry.repositories.service.ServiceRepository
+import ru.icomplex.dentistry.repositories.service.ServiceRepositoryImpl
 
 @[Module InstallIn(SingletonComponent::class)]
 abstract class RepositoriesModule {
@@ -35,4 +37,9 @@ abstract class RepositoriesModule {
     abstract fun bindDoctorRepo(
         repo: DoctorRepositoryImpl
     ): DoctorRepository
+
+    @Binds
+    abstract fun bindServiceRepo(
+        repo: ServiceRepositoryImpl
+    ): ServiceRepository
 }

@@ -12,6 +12,8 @@ import ru.icomplex.dentistry.sources.notification.NotificationRetrofitSource
 import ru.icomplex.dentistry.sources.notification.NotificationSource
 import ru.icomplex.dentistry.sources.profile.ProfileRetrofitSource
 import ru.icomplex.dentistry.sources.profile.ProfileSource
+import ru.icomplex.dentistry.sources.service.ServiceRetrofitSource
+import ru.icomplex.dentistry.sources.service.ServiceSource
 
 @[Module InstallIn(SingletonComponent::class)]
 abstract class SourcesModule {
@@ -35,4 +37,9 @@ abstract class SourcesModule {
     abstract fun bindDoctorSource(
         source: DoctorRetrofitSource
     ): DoctorSource
+
+    @Binds
+    abstract fun bindServiceSource(
+        source: ServiceRetrofitSource
+    ): ServiceSource
 }

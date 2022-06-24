@@ -2,8 +2,11 @@ package ru.icomplex.dentistry.extension
 
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 
@@ -31,3 +34,15 @@ val Fragment.appActivity
 inline fun Fragment.getActionBar(crossinline supportActionBar: (ActionBar) -> Unit) {
     appActivity.supportActionBar?.let(supportActionBar)
 }
+
+/**
+ * Функция расширения для получения string переменных из ресурсов
+ *
+ * @param id ID ресурса
+ */
+fun Fragment.resString(@StringRes id: Int) = resources.getString(id)
+
+/**
+ * Функция расширения для получения drawable ресурсов
+ */
+fun Fragment.getDraw(@DrawableRes id: Int) = getDrawable(requireContext(), id)

@@ -42,7 +42,7 @@ class AdapterDoctorList : RecyclerView.Adapter<AdapterDoctorList.DoctorListHolde
     override fun onBindViewHolder(holder: DoctorListHolder, position: Int) {
         val doctor = list[position]
         with(holder.bind) {
-            root.setOnClickListener {
+            holderDoctorRoot.setOnClickListener {
                 eventClick?.onPostClick(
                     EventClickAction(SHORT, OPEN, doctor, position)
                 )

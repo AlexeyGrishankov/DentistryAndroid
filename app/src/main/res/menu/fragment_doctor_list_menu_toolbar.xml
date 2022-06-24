@@ -8,6 +8,6 @@
         android:id="@+id/notification_item"
         android:icon="@drawable/ic_notifications"
         android:title="Уведомления"
-        android:actionLayout="@layout/aaaa"
+        android:actionLayout="@layout/layout_notification_badge"
         app:showAsAction="always" />
 </menu>

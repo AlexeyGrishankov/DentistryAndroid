@@ -6,16 +6,18 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.icomplex.dentistry.R
 import ru.icomplex.dentistry.databinding.FragmentDoctorListBinding
-import ru.icomplex.dentistry.extension.*
+import ru.icomplex.dentistry.extension.changeVisible
+import ru.icomplex.dentistry.extension.observe
+import ru.icomplex.dentistry.extension.toast
 import ru.icomplex.dentistry.iu.adapters.AdapterDoctorList
-import ru.icomplex.dentistry.iu.adapters.EventClick
 import ru.icomplex.dentistry.iu.fragment.base.BaseFragment
 import ru.icomplex.dentistry.iu.viewmodel.FragmentDoctorListViewModel
 import ru.icomplex.dentistry.model.doctor.ViewDoctorList
-import ru.icomplex.dentistry.model.notification.NotificationList
+import ru.icomplex.dentistry.model.notification.ViewNotificationList
 import ru.icomplex.dentistry.model.settings.AppSettings
 import javax.inject.Inject
 
@@ -31,8 +33,8 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
 
     private val adapterDoctorList = AdapterDoctorList()
 
-    var badgeTextView: TextView? = null
-    var notificationMenuItem: View? = null
+    private var badgeTextView: TextView? = null
+    private var badgeIcon: View? = null
 
     override fun preInit() {
         setHasOptionsMenu(true)
@@ -40,7 +42,6 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
 
     override fun init(view: View, bundle: Bundle?) {
         setObservers()
-        startAppBar()
         setupDoctorList()
     }
 
@@ -49,31 +50,35 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
         inflater.inflate(R.menu.fragment_doctor_list_menu_toolbar, menu)
 
         val item = menu.findItem(R.id.notification_item)
-        item.setActionView(R.layout.aaaa)
+        item.setActionView(R.layout.layout_notification_badge)
         val view = item.actionView
         badgeTextView = view.findViewById(R.id.count)
-        notificationMenuItem = view.findViewById(R.id.notificationBadgeRoot)
+        badgeIcon = view.findViewById(R.id.badge)
+        view.findViewById<View>(R.id.notificationBadgeRoot).apply {
+            setOnClickListener {
+                findNavController().navigate(
+                    FragmentDoctorListDirections
+                        .actionFragmentDoctorListToFragmentNotificationList()
+                )
+            }
+        }
     }
 
     private fun setObservers() {
+        observe(viewModel.notification, ::setNotificationBadge)
+        observe(viewModel.doctorList, ::updateDoctorList)
         viewModel.apply {
             getNotifications()
             getDoctors()
         }
-        observe(viewModel.notification, ::setNotificationBadge)
-        observe(viewModel.doctorList, ::updateDoctorList)
     }
 
-    private fun startAppBar() {
-        getActionBar { it.title = "Врачи" }
-        notificationMenuItem?.apply {
-            setOnClickListener { toast("asdasdsd") }
-        }
-    }
-
-    private fun setNotificationBadge(notificationList: NotificationList) {
+    private fun setNotificationBadge(viewNotificationList: ViewNotificationList) {
         badgeTextView?.text = appSettings.getNotificationsIds().let { oldIds ->
-            notificationList.data.filter { !oldIds.contains(it.id) }.size.toString()
+            viewNotificationList.data.filter { !oldIds.contains(it.id) }.size.also {
+                badgeIcon?.changeVisible(it != 0)
+                badgeTextView?.changeVisible(it != 0)
+            }.toString()
         }
     }
 
@@ -84,7 +89,6 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
                     toast(it.item.fullName)
                 }
             }
-
         }
     }
 

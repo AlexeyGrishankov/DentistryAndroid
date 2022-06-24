@@ -148,6 +148,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private fun getAuth(authGrant: AuthGrant) {
         toast("Успешная авторизация $authGrant")
         startMainActivity()
+        finish()
     }
 
     private fun changeProgress(progress: Boolean) {

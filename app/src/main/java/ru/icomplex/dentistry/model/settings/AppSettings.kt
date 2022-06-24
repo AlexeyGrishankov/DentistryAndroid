@@ -17,5 +17,5 @@ interface AppSettings {
 
     fun getNotificationsIds(): IntArray
 
-    fun setNotificationsIds(ids: IntArray)
+    fun addNotificationsId(id: Int)
 }

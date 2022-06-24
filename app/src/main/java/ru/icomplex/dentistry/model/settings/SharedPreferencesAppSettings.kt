@@ -49,13 +49,10 @@ class SharedPreferencesAppSettings @Inject constructor(
             ?: IntArray(0)
     }
 
-    override fun setNotificationsIds(ids: IntArray) {
-        val editor = sharedPreferences.edit()
-        if (ids.isEmpty()) {
-            editor.remove(NOTIFICATIONS_IDS)
-        } else {
-            editor.putStringSet(NOTIFICATIONS_IDS, ids.map { "$it" }.toSet())
-        }
-        editor.apply()
+    override fun addNotificationsId(id: Int) {
+        val currentIds = getNotificationsIds().toMutableSet().apply { add(id) }
+        sharedPreferences.edit()
+            .putStringSet(NOTIFICATIONS_IDS, currentIds.map { "$it" }.toSet())
+            .apply()
     }
 }
