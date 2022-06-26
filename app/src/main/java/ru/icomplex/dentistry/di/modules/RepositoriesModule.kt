@@ -1,8 +1,18 @@
 package ru.icomplex.dentistry.di.modules
 
+import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ru.icomplex.dentistry.repositories.auth.AuthRepository
+import ru.icomplex.dentistry.repositories.auth.AuthRepositoryImpl
 
 @[Module InstallIn(SingletonComponent::class)]
-abstract class RepositoriesModule
+abstract class RepositoriesModule {
+
+    @Binds
+    abstract fun bindAuthRepo(
+        repo: AuthRepositoryImpl
+    ): AuthRepository
+
+}

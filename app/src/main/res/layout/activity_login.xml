@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".iu.activity.LoginActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_menu_24_green"
+            app:subtitleTextColor="@color/subtitle_text"
+            app:titleTextColor="@color/black"
+            tools:subtitle="г.Реутов, ул.Реутовских ополченцев, д.2"
+            tools:title="Стоматология ProDent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/authTextActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="52dp"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/auth_text_activity"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/hintHistoryImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/ic_history_visits"
+                app:layout_constraintStart_toStartOf="@+id/phoneFieldLogin"
+                app:layout_constraintTop_toBottomOf="@+id/authTextActivity" />
+
+            <TextView
+                android:id="@+id/hintHistoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/history_text_activity"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/hintHistoryImage"
+                app:layout_constraintStart_toEndOf="@+id/hintHistoryImage"
+                app:layout_constraintTop_toTopOf="@+id/hintHistoryImage" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/hintSaleImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_sale"
+                app:layout_constraintStart_toStartOf="@+id/hintHistoryImage"
+                app:layout_constraintTop_toBottomOf="@+id/hintHistoryImage" />
+
+            <TextView
+                android:id="@+id/hintSaleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="@string/sale_text_activity"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/hintSaleImage"
+                app:layout_constraintStart_toEndOf="@+id/hintSaleImage"
+                app:layout_constraintTop_toTopOf="@+id/hintSaleImage" />
+
+            <ProgressBar
+                android:id="@+id/progressLogin"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneFieldLogin"
+                style="@style/TextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:hint="@string/enter_phone_number"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/hintSaleImage">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/codeFieldLogin"
+                style="@style/TextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/enter_code_sms"
+                android:inputType="textEmailAddress"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/phoneFieldLogin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/sendSmsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/send_sms"
+                app:layout_constraintTop_toBottomOf="@+id/codeFieldLogin" />
+
+            <Button
+                android:id="@+id/sendCodeAgainBtn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/send_sms_again"
+                android:textColor="@color/main"
+                android:visibility="invisible"
+                app:layout_constraintTop_toBottomOf="@+id/sendSmsButton" />
+
+            <TextView
+                android:id="@+id/textAgainSendCodeTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/sendCodeAgainBtn"
+                tools:layout_editor_absoluteX="0dp"
+                tools:text="Повторный запрос кода через: 00:59" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
