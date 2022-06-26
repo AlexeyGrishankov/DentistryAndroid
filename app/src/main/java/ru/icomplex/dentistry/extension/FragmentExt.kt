@@ -40,7 +40,14 @@ inline fun Fragment.getActionBar(crossinline supportActionBar: (ActionBar) -> Un
  *
  * @param id ID ресурса
  */
-fun Fragment.resString(@StringRes id: Int) = resources.getString(id)
+fun Fragment.resString(@StringRes id: Int, vararg format: Any): String {
+    val res = resources.getString(id)
+    return if (format.isEmpty()) {
+        res
+    } else {
+        String.format(res, format)
+    }
+}
 
 /**
  * Функция расширения для получения drawable ресурсов

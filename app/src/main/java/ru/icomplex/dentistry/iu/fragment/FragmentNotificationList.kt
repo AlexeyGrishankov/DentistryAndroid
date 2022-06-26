@@ -42,7 +42,7 @@ class FragmentNotificationList : BaseFragment<FragmentNotificationListBinding>(
     }
 
     private fun updateNotificationList(viewNotificationList: ViewNotificationList) {
-        adapterNotificationList.updateList(viewNotificationList.data)
+        adapterNotificationList.updateList(viewNotificationList.data.reversed())
     }
 
     private fun setupAdapterNotificationList() {

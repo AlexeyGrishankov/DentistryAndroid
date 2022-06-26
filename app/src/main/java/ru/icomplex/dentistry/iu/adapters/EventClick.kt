@@ -28,7 +28,7 @@ fun interface OnItemClickListener {
  * Состояние клика
  */
 enum class EventClickState {
-    OPEN, CREATE, EDIT, DELETE, EXPAND, COLLAPSE, SKIP;
+    OPEN, CREATE, EDIT, DELETE, EXPAND, COLLAPSE, SKIP, SELECTED;
 }
 
 /**

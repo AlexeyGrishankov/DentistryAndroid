@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "237545599799",
+    "project_id": "i-complex-d791b",
+    "storage_bucket": "i-complex-d791b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237545599799:android:f8125b46409d8abe7ba0b2",
+        "android_client_info": {
+          "package_name": "ru.icomplex.dentistry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237545599799-4dmt7k92vikjbn1t4kc80hr0g5umn22t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.icomplex.dentistry",
+            "certificate_hash": "0d3ed67b751c89519665b651ca58c4697a02ffa0"
+          }
+        },
+        {
+          "client_id": "237545599799-2fqlhk855m4d46gpk2eqsb2u2t45nht3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOipQMtodR0extMscFQUBumHBCHGvj93A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237545599799-2fqlhk855m4d46gpk2eqsb2u2t45nht3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237545599799-48ood4nbb6n4nril700t7d2hmjbi1tvh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ru.i-complex.mis-ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237545599799:android:02a47f1726b8ae887ba0b2",
+        "android_client_info": {
+          "package_name": "ru.icomplex.top32"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237545599799-6he7f7j783fp2g9r8b21je4ebco1g4bj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.icomplex.top32",
+            "certificate_hash": "cef2e5fd115ca8b3ace1f13fe75cd6a303fdee23"
+          }
+        },
+        {
+          "client_id": "237545599799-2fqlhk855m4d46gpk2eqsb2u2t45nht3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOipQMtodR0extMscFQUBumHBCHGvj93A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237545599799-2fqlhk855m4d46gpk2eqsb2u2t45nht3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "237545599799-48ood4nbb6n4nril700t7d2hmjbi1tvh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ru.i-complex.mis-ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

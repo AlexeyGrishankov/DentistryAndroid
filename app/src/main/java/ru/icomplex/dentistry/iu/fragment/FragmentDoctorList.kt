@@ -12,7 +12,6 @@ import ru.icomplex.dentistry.R
 import ru.icomplex.dentistry.databinding.FragmentDoctorListBinding
 import ru.icomplex.dentistry.extension.changeVisible
 import ru.icomplex.dentistry.extension.observe
-import ru.icomplex.dentistry.extension.toast
 import ru.icomplex.dentistry.iu.adapters.AdapterDoctorList
 import ru.icomplex.dentistry.iu.fragment.base.BaseFragment
 import ru.icomplex.dentistry.iu.viewmodel.FragmentDoctorListViewModel
@@ -27,6 +26,11 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
     FragmentDoctorListBinding::bind,
 ) {
 
+    companion object {
+        const val NO_SELECTED_DOCTOR = -1
+        const val DURATION_BTN_ANIMATION: Long = 500
+    }
+
     @Inject
     lateinit var appSettings: AppSettings
     private val viewModel: FragmentDoctorListViewModel by viewModels()
@@ -35,6 +39,8 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
 
     private var badgeTextView: TextView? = null
     private var badgeIcon: View? = null
+
+    private var selectedDoctorId: Int = -1
 
     override fun preInit() {
         setHasOptionsMenu(true)
@@ -83,13 +89,44 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
     }
 
     private fun setupDoctorList() {
-        bind.doctorList.apply {
-            adapter = adapterDoctorList.apply {
-                setEventClick {
-                    toast(it.item.fullName)
+        bind.doctorList.adapter = adapterDoctorList.apply {
+            setEventClick {
+                when (it.pos) {
+                    selectedDoctorId -> unselectedDoctor()
+                    else -> selectedDoctor(it.pos)
                 }
             }
         }
+    }
+
+    private fun selectedDoctor(position: Int) {
+        adapterDoctorList.setSelectedDoctor(position)
+        selectedDoctorId = position
+        bind.constraintLayout.apply {
+            animate()
+                .translationYBy(measuredHeight.toFloat())
+                .translationY(0f)
+                .setDuration(DURATION_BTN_ANIMATION)
+                .withStartAction { changeVisible(true) }
+        }
+    }
+
+    private fun unselectedDoctor() {
+        NO_SELECTED_DOCTOR.let {
+            adapterDoctorList.setSelectedDoctor(it)
+            selectedDoctorId = it
+        }
+        bind.constraintLayout.apply {
+            animate()
+                .translationY(measuredHeight.toFloat())
+                .setDuration(DURATION_BTN_ANIMATION)
+                .withEndAction { changeVisible(false) }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unselectedDoctor()
     }
 
     private fun updateDoctorList(doctorsList: ViewDoctorList) {
