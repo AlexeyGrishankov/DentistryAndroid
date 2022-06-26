@@ -9,5 +9,12 @@
         android:id="@+id/fragmentDoctorList"
         android:name="ru.icomplex.dentistry.iu.fragment.FragmentDoctorList"
         android:label="@string/fragment_label_doctors"
-        tools:layout="@layout/fragment_doctor_list"/>
+        tools:layout="@layout/fragment_doctor_list">
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentServices"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentServiceList"
+        android:label="@string/fragment_label_services"
+        tools:layout="@layout/fragment_service_list">
+    </fragment>
 </navigation>
