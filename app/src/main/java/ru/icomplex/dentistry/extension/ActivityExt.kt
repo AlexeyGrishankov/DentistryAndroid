@@ -1,8 +1,6 @@
 package ru.icomplex.dentistry.extension
 
-import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 
 /**

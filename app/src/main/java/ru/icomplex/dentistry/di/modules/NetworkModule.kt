@@ -13,14 +13,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import okhttp3.*
-import ru.icomplex.dentistry.BuildConfig
+import okhttp3.Cache
+import okhttp3.CacheControl
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.icomplex.dentistry.BuildConfig
 import ru.icomplex.dentistry.Constant
 import ru.icomplex.dentistry.extension.toast
-import ru.icomplex.dentistry.model.auth.RetrofitAuth
 import ru.icomplex.dentistry.model.settings.AppSettings
 import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
@@ -50,7 +52,6 @@ class NetworkModule {
     fun provideClient(
         @ApplicationContext appContext: Context,
         settings: AppSettings,
-        retrofitAuth: RetrofitAuth,
     ): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         httpClient.callTimeout(60, TimeUnit.SECONDS)
@@ -61,7 +62,6 @@ class NetworkModule {
         httpClient.addNetworkInterceptor(createCacheInterceptor())
         httpClient.addInterceptor(createAuthInterceptor(settings))
         httpClient.addInterceptor(createTrowInterceptor(appContext))
-//        httpClient.authenticator(createAuthenticator(appContext, settings, retrofitAuth))
         if (BuildConfig.DEBUG) {
             httpClient.addInterceptor(createLoggingInterceptor())
         }
@@ -78,21 +78,6 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
-    }
-
-    @[Provides Singleton]
-    fun provideAuthRetrofit(gson: Gson, settings: AppSettings): RetrofitAuth {
-        val client = OkHttpClient().newBuilder()
-            .addInterceptor(createLoggingInterceptor())
-            .addInterceptor(createAuthInterceptor(settings))
-            .build()
-        return RetrofitAuth(
-            Retrofit.Builder()
-                .baseUrl(Constant.BACKEND_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .build()
-        )
     }
 
     private fun createAuthInterceptor(settings: AppSettings): Interceptor {
@@ -165,29 +150,4 @@ class NetworkModule {
                 .build()
         }
     }
-
-//    private fun createAuthenticator(
-//        appContext: Context,
-//        settings: AppSettings,
-//        retrofitAuth: RetrofitAuth,
-//    ): Authenticator {
-//        return Authenticator { _, response ->
-//            val newToken: String? =
-//                retrofitAuth.retrofit.create(AuthApi::class.java)
-//                    .refreshToken()
-//                    .execute()
-//                    .body()?.token
-//
-//            if (newToken == null) {
-//                settings.setCurrentToken(null)
-//                val intent = Intent(appContext, LoginActivity::class.java)
-//                appContext.startActivity(intent)
-//                return@Authenticator null
-//            }
-//
-//            return@Authenticator response.request.newBuilder()
-//                .header("Authorization", "Bearer $newToken")
-//                .build()
-//        }
-//    }
 }
