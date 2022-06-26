@@ -62,11 +62,10 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
         badgeIcon = view.findViewById(R.id.badge)
         view.findViewById<View>(R.id.notificationBadgeRoot).apply {
             setOnClickListener {
-                //todo
-//                findNavController().navigate(
-//                    FragmentDoctorListDirections
-//                        .actionFragmentDoctorListToFragmentNotificationList()
-//                )
+                findNavController().navigate(
+                    FragmentDoctorListDirections
+                        .actionFragmentDoctorListToFragmentNotificationList()
+                )
             }
         }
     }

@@ -10,11 +10,35 @@
         android:name="ru.icomplex.dentistry.iu.fragment.FragmentDoctorList"
         android:label="@string/fragment_label_doctors"
         tools:layout="@layout/fragment_doctor_list">
+        <action
+            android:id="@+id/action_fragmentDoctorList_to_fragmentNotificationList"
+            app:destination="@id/fragmentNotificationList" />
     </fragment>
     <fragment
         android:id="@+id/fragmentServices"
         android:name="ru.icomplex.dentistry.iu.fragment.FragmentServiceList"
         android:label="@string/fragment_label_services"
         tools:layout="@layout/fragment_service_list">
+        <action
+            android:id="@+id/action_fragmentServices_to_fragmentNotificationList"
+            app:destination="@id/fragmentNotificationList" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentNotificationList"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentNotificationList"
+        android:label="@string/fragment_label_notifications"
+        tools:layout="@layout/fragment_notification_list">
+        <action
+            android:id="@+id/action_fragmentNotificationList_to_fragmentNotificationView"
+            app:destination="@id/fragmentNotificationView" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentNotificationView"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentNotificationView"
+        android:label="@string/fragment_label_notification"
+        tools:layout="@layout/fragment_notification_view">
+        <argument
+            android:name="notification"
+            app:argType="ru.icomplex.dentistry.model.notification.ViewNotification" />
     </fragment>
 </navigation>

@@ -55,11 +55,10 @@ class FragmentServiceList : BaseFragment<FragmentServiceListBinding>(
         badgeIcon = view.findViewById(R.id.badge)
         view.findViewById<View>(R.id.notificationBadgeRoot).apply {
             setOnClickListener {
-                //todo
-//                findNavController().navigate(
-//                    FragmentServiceListDirections
-//                        .actionFragmentServicesToFragmentNotificationList()
-//                )
+                findNavController().navigate(
+                    FragmentServiceListDirections
+                        .actionFragmentServicesToFragmentNotificationList()
+                )
             }
         }
     }
