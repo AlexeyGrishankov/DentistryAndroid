@@ -32,7 +32,7 @@ class FragmentServiceListViewModel @Inject constructor(
 
     fun getServices() {
         launch {
-            serviceRepository.getServices().collectLiveData(_services)
+            serviceRepository.getServices(null).collectLiveData(_services)
         }
     }
 }

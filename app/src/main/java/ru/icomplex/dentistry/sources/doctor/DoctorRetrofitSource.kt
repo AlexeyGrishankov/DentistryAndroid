@@ -17,9 +17,9 @@ class DoctorRetrofitSource @Inject constructor(
 
     private val api = retrofit.create(DoctorApi::class.java)
 
-    override suspend fun getDoctors(): Result<ViewDoctorList> {
+    override suspend fun getDoctors(serviceId: Int?): Result<ViewDoctorList> {
         return withContext(Dispatchers.IO) {
-            api.getDoctors().awaitResponse().toResult()
+            api.getDoctors(serviceId).awaitResponse().toResult()
         }
     }
 }

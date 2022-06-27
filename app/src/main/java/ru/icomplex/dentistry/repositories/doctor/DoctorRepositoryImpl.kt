@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class DoctorRepositoryImpl @Inject constructor(
     private val doctorSource: DoctorSource
 ) : DoctorRepository{
-    override suspend fun getDoctors(): Flow<ViewDoctorList> = flow {
-        doctorSource.getDoctors().get { emit(it) }
+    override suspend fun getDoctors(serviceId: Int?): Flow<ViewDoctorList> = flow {
+        doctorSource.getDoctors(serviceId).get { emit(it) }
     }
 }

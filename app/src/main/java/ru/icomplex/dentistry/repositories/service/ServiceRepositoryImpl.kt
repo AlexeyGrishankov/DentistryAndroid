@@ -13,7 +13,7 @@ class ServiceRepositoryImpl @Inject constructor(
     private val serviceSource: ServiceSource
 ) : ServiceRepository {
 
-    override suspend fun getServices(): Flow<ViewServiceList> = flow {
-        serviceSource.getServices().get { emit(it) }
+    override suspend fun getServices(doctorId: Int?): Flow<ViewServiceList> = flow {
+        serviceSource.getServices(doctorId).get { emit(it) }
     }
 }

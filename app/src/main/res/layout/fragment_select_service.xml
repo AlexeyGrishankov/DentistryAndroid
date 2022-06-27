@@ -4,16 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".iu.fragment.FragmentDoctorList">
+    tools:context=".iu.fragment.FragmentSelectService">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/doctorList"
+        android:id="@+id/recyclerTypeServices"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/holder_doctor" />
+        tools:listitem="@layout/holder_type_of_service" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerServices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerTypeServices"
+        tools:listitem="@layout/holder_select_service" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/constraintLayout"

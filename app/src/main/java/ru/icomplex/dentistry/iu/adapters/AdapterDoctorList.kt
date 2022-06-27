@@ -1,6 +1,5 @@
 package ru.icomplex.dentistry.iu.adapters
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -18,6 +17,7 @@ import ru.icomplex.dentistry.R
 import ru.icomplex.dentistry.databinding.HolderDoctorBinding
 import ru.icomplex.dentistry.extension.drawable
 import ru.icomplex.dentistry.iu.adapters.EventClickState.SELECTED
+import ru.icomplex.dentistry.iu.adapters.EventClickState.UNSELECTED
 import ru.icomplex.dentistry.iu.adapters.EventClickType.SHORT
 import ru.icomplex.dentistry.model.doctor.ViewDoctor
 
@@ -25,7 +25,7 @@ class AdapterDoctorList : RecyclerView.Adapter<AdapterDoctorList.DoctorListHolde
 
     private var list: MutableList<ViewDoctor> = mutableListOf()
     private var eventClick: EventClick<ViewDoctor>? = null
-    private var selectedDoctor: Int = -1
+    private var selectedDoctor: ViewDoctor? = null
 
     fun updateList(newList: List<ViewDoctor>) {
         val diffCallback = DiffUtilDoctorList(list, newList)
@@ -46,24 +46,36 @@ class AdapterDoctorList : RecyclerView.Adapter<AdapterDoctorList.DoctorListHolde
         return DoctorListHolder(view)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setSelectedDoctor(position: Int) {
-        selectedDoctor = position
+    private fun update() {
         notifyDataSetChanged()
+    }
+
+    fun clear() {
+        selectedDoctor = null
+    }
+
+    fun getSelected() = selectedDoctor
+
+    private fun onPostClickRoot(doctor: ViewDoctor, position: Int) {
+        if (selectedDoctor == null || selectedDoctor != doctor) {
+            eventClick?.onPostClick(EventClickAction(SHORT, SELECTED, doctor, position))
+            selectedDoctor = doctor
+        } else {
+            eventClick?.onPostClick(EventClickAction(SHORT, UNSELECTED, doctor, position))
+            selectedDoctor = null
+        }
+        update()
     }
 
     override fun onBindViewHolder(holder: DoctorListHolder, position: Int) {
         val doctor = list[position]
         with(holder.bind) {
             holderDoctorRoot.apply {
-                background = when (selectedDoctor) {
-                    position -> context.drawable(R.drawable.selector_holder_doctor_stroke)
-                    else -> null
-                }
-                setOnClickListener {
-                    eventClick?.onPostClick(
-                        EventClickAction(SHORT, SELECTED, doctor, position)
-                    )
+                setOnClickListener { onPostClickRoot(doctor, position) }
+                background = if (selectedDoctor == doctor) {
+                    holder.itemView.context.drawable(R.drawable.selector_holder_doctor_stroke)
+                } else {
+                    null
                 }
             }
             textFieldDoctorFullName.text = doctor.fullName

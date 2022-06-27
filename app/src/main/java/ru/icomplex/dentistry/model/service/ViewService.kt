@@ -7,4 +7,6 @@ data class ViewService(
     @SerializedName("id") val id: Int,
     @SerializedName("price") val price: Int,
     @SerializedName("name") val name: String,
+    @SerializedName("type") val type: String,
+    @SerializedName("duration") val duration: String
 ) : Serializable

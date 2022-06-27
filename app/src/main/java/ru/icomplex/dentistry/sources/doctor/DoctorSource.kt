@@ -4,5 +4,5 @@ import ru.icomplex.dentistry.model.doctor.ViewDoctorList
 
 interface DoctorSource {
 
-    suspend fun getDoctors(): Result<ViewDoctorList>
+    suspend fun getDoctors(serviceId: Int?): Result<ViewDoctorList>
 }

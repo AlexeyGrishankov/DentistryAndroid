@@ -20,9 +20,9 @@ class ServiceRetrofitSource @Inject constructor(
 
     private val api = retrofit.create(ServiceApi::class.java)
 
-    override suspend fun getServices(): Result<ViewServiceList> {
+    override suspend fun getServices(doctorId: Int?): Result<ViewServiceList> {
         return withContext(Dispatchers.IO) {
-            api.getServices().awaitResponse().toResult()
+            api.getServices(doctorId).awaitResponse().toResult()
         }
     }
 }

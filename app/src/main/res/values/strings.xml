@@ -17,5 +17,6 @@
     <string name="other_time">Другое время</string>
     <string name="next">Далее</string>
     <string name="watched">Просмотрено</string>
+    <string name="fragment_label_add_visit">Запись к врачу</string>
 
 </resources>

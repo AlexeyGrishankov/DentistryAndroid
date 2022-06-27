@@ -12,6 +12,7 @@
     <color name="text_field_bg">#FFECEFF1</color>
     <color name="text_field_hint">#FF546E7A</color>
     <color name="subtitle_text">#FF9E9E9E</color>
+    <color name="blue_gray">#FFB0BEC5</color>
 
 </resources>
 

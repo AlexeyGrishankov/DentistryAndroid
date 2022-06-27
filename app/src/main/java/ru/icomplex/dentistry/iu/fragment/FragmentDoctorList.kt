@@ -13,6 +13,7 @@ import ru.icomplex.dentistry.databinding.FragmentDoctorListBinding
 import ru.icomplex.dentistry.extension.changeVisible
 import ru.icomplex.dentistry.extension.observe
 import ru.icomplex.dentistry.iu.adapters.AdapterDoctorList
+import ru.icomplex.dentistry.iu.adapters.EventClickState
 import ru.icomplex.dentistry.iu.fragment.base.BaseFragment
 import ru.icomplex.dentistry.iu.viewmodel.FragmentDoctorListViewModel
 import ru.icomplex.dentistry.model.doctor.ViewDoctorList
@@ -27,7 +28,6 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
 ) {
 
     companion object {
-        const val NO_SELECTED_DOCTOR = -1
         const val DURATION_BTN_ANIMATION: Long = 500
     }
 
@@ -40,15 +40,25 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
     private var badgeTextView: TextView? = null
     private var badgeIcon: View? = null
 
-    private var selectedDoctorId: Int = -1
-
     override fun preInit() {
         setHasOptionsMenu(true)
     }
 
     override fun init(view: View, bundle: Bundle?) {
         setObservers()
+        setButtons()
         setupDoctorList()
+    }
+
+    private fun setButtons() {
+        bind.serviceSelectNextButton.setOnClickListener {
+            adapterDoctorList.getSelected()?.let {
+                findNavController().navigate(
+                    FragmentDoctorListDirections
+                        .actionFragmentDoctorListToFragmentSelectService(it.id)
+                )
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -91,17 +101,16 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
     private fun setupDoctorList() {
         bind.doctorList.adapter = adapterDoctorList.apply {
             setEventClick {
-                when (it.pos) {
-                    selectedDoctorId -> unselectedDoctor()
-                    else -> selectedDoctor(it.pos)
+                if (it.state == EventClickState.SELECTED) {
+                    selectedDoctor()
+                } else if (it.state == EventClickState.UNSELECTED) {
+                    unselectedDoctor()
                 }
             }
         }
     }
 
-    private fun selectedDoctor(position: Int) {
-        adapterDoctorList.setSelectedDoctor(position)
-        selectedDoctorId = position
+    private fun selectedDoctor() {
         bind.constraintLayout.apply {
             animate()
                 .translationYBy(measuredHeight.toFloat())
@@ -112,10 +121,6 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
     }
 
     private fun unselectedDoctor() {
-        NO_SELECTED_DOCTOR.let {
-            adapterDoctorList.setSelectedDoctor(it)
-            selectedDoctorId = it
-        }
         bind.constraintLayout.apply {
             animate()
                 .translationY(measuredHeight.toFloat())
@@ -126,6 +131,7 @@ class FragmentDoctorList : BaseFragment<FragmentDoctorListBinding>(
 
     override fun onStop() {
         super.onStop()
+        adapterDoctorList.clear()
         unselectedDoctor()
     }
 

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_fragmentDoctorList_to_fragmentNotificationList"
             app:destination="@id/fragmentNotificationList" />
+        <action
+            android:id="@+id/action_fragmentDoctorList_to_fragmentSelectService"
+            app:destination="@id/fragmentSelectService" />
     </fragment>
     <fragment
         android:id="@+id/fragmentServices"
@@ -41,4 +44,21 @@
             android:name="notification"
             app:argType="ru.icomplex.dentistry.model.notification.ViewNotification" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentSelectService"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentSelectService"
+        android:label="@string/fragment_label_add_visit"
+        tools:layout="@layout/fragment_select_service">
+        <argument
+            android:name="doctorId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentSelectService_to_fragmentSelectDate"
+            app:destination="@id/fragmentSelectDate" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSelectDate"
+        android:name="ru.icomplex.dentistry.iu.fragment.FragmentSelectDate"
+        android:label="@string/fragment_label_add_visit"
+        tools:layout="@layout/fragment_select_datetime" />
 </navigation>

@@ -20,4 +20,13 @@
         <item name="spinBars">true</item>
         <item name="color">@color/main</item>
     </style>
+
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.CheckBox</item>
+    </style>
+    <style name="ThemeOverlay.App.CheckBox" parent="">
+        <item name="colorOnSurface">@color/blue_gray</item>
+        <item name="colorSecondary">@color/main</item>
+    </style>
+
 </resources>

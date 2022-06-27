@@ -32,7 +32,7 @@ class FragmentDoctorListViewModel @Inject constructor(
 
     fun getDoctors() {
         launch {
-            doctorRepository.getDoctors().collectLiveData(_doctorList)
+            doctorRepository.getDoctors(null).collectLiveData(_doctorList)
         }
     }
 }
